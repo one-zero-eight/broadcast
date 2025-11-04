@@ -37,9 +37,6 @@ func main() {
 		return
 	}
 
-	/*
-	   Application starts
-	*/
 	// Create Telegram bot client.
 	app, err := bot.New(token)
 	if err != nil {
