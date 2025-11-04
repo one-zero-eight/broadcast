@@ -1,3 +1,4 @@
+version: 2
 run:
   timeout: 3m
   tests: true
@@ -5,13 +6,11 @@ run:
 linters:
   enable:
     - errcheck
-    - gosimple
     - staticcheck
     - ineffassign
     - revive
     - gocritic
     - govet
-    - gofmt
   disable:
     - dupl
     - gocyclo
@@ -34,4 +33,3 @@ issues:
   exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0
-

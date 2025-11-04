@@ -41,8 +41,7 @@ func main() {
 	app, err := bot.New(token)
 	if err != nil {
 		// Log error and stop if bot cannot start.
-		slog.Error("Error while starting the application", err)
-		return
+		slog.Error("Error while starting the application", slog.String("error", err.Error()))
 	} else {
 		slog.Info("Bot is now running.  Press CTRL-C to exit.")
 	}

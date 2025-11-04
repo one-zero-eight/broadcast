@@ -1,20 +1,23 @@
- - .env
-  - .env.*
-  - .DS_Store
-  - .idea/
-  - .vscode/
-  - bin/
-  - build/
-  - dist/
-  - out/
-  - *.exe
-  - *.dll
-  - *.so
-  - *.dylib
-  - *.test
-  - coverage/
-  - coverage.*
-  - *.coverprofile
-  - *.cov
-  - *.out
-  - *.log
+# Environment and secrets
+.env
+.env.*
+
+# Editor/IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Build artifacts
+bin/
+build/
+dist/
+coverage/
+*.out
+*.test
+
+# Logs
+*.log
+
+# Go modules cache (optional)
+# vendor/
+

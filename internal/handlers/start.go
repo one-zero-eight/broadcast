@@ -1,5 +1,5 @@
-// Handlers and keyboard UI for the Telegram bot.
-// Includes /start command, inline keyboard builder,
+// Package internal contains handlers and keyboard helpers for the Telegram bot.
+// It includes the /start command, inline keyboard builder,
 // and callback logic for option toggling and selection.
 package internal
 
@@ -21,10 +21,13 @@ var currentOptions = []bool{false, false, false}
 // It toggles options based on callback data, updates the keyboard,
 // and on "Select" deletes the original message and sends the result.
 func CallbackHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
-	b.AnswerCallbackQuery(ctx, &bot.AnswerCallbackQueryParams{
+	_, err := b.AnswerCallbackQuery(ctx, &bot.AnswerCallbackQueryParams{
 		CallbackQueryID: update.CallbackQuery.ID,
 		ShowAlert:       false,
 	})
+	if err != nil {
+		return
+	}
 
 	switch update.CallbackQuery.Data {
 	case "btn_opt1":
@@ -51,11 +54,14 @@ func CallbackHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
 		return
 	}
 
-	b.EditMessageReplyMarkup(ctx, &bot.EditMessageReplyMarkupParams{
+	_, err = b.EditMessageReplyMarkup(ctx, &bot.EditMessageReplyMarkupParams{
 		ChatID:      update.CallbackQuery.Message.Message.Chat.ID,
 		MessageID:   update.CallbackQuery.Message.Message.ID,
 		ReplyMarkup: EduDegree(),
 	})
+	if err != nil {
+		return
+	}
 }
 
 // EduDegree builds an inline keyboard with three toggle buttons
@@ -95,9 +101,12 @@ func StartHandler(ctx context.Context, app *bot.Bot, update *models.Update) {
 	}
 	kb := EduDegree()
 	chatID := update.Message.Chat.ID
-	app.SendMessage(ctx, &bot.SendMessageParams{
+	_, err := app.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID:      chatID,
 		Text:        "Привет! Это твой бот. Select .",
 		ReplyMarkup: kb,
 	})
+	if err != nil {
+		return
+	}
 }
